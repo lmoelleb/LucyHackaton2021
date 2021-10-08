@@ -1,5 +1,6 @@
 {
   "name": "presentation",
+  "homepage": "https://rpetrov.ru/weather-presentation/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

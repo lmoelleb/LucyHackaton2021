@@ -1,5 +1,6 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { LocationModel } from 'models';
+import { currentTemperature } from 'services/current-temperature';
 
 export class WeatherController {
   public currentTemperature?: number;
@@ -10,6 +11,8 @@ export class WeatherController {
     makeAutoObservable(this);
 
     this.cleanLocation = this.cleanLocation.bind(this);
+
+    this.loadCurrentTemperature();
 
     const savedLocation = localStorage.getItem('location');
     if (savedLocation) {
@@ -34,5 +37,22 @@ export class WeatherController {
   public cleanLocation() {
     this.location = undefined;
     localStorage.removeItem('location');
+  }
+
+  private async loadCurrentTemperature() {
+    try {
+      const data = await currentTemperature.get();
+
+      runInAction(() => {
+        this.currentHumidity = data.humidity;
+        this.currentTemperature = data.temperature;
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setTimeout(() => {
+        this.loadCurrentTemperature();
+      }, 5000);
+    }
   }
 }

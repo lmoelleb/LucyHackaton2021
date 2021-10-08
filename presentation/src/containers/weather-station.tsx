@@ -8,8 +8,8 @@ export const WeatherStation: React.FC = observer(() => {
   return (
     <>
       <h1>Weather station.</h1>
-      <p>Temp: {weatherController.currentTemperature ?? 'unknown'}</p>
-      <p>Humidity: {weatherController.currentHumidity ?? 'unknown'}</p>
+      <p>Temp: {weatherController.currentTemperature}</p>
+      <p>Humidity: {weatherController.currentHumidity}</p>
 
       {weatherController.placeName === undefined && <PlaceSelector />}
 
