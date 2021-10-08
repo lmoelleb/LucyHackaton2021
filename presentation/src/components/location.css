@@ -1,0 +1,7 @@
+.location {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+  height: 1.2em;
+  vertical-align: text-bottom;
+}
